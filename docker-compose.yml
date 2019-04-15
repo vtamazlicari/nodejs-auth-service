@@ -1,0 +1,20 @@
+version: '3'
+services:
+  db:
+    container_name: lab5_db
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=parola
+  node:
+    container_name: lab5_node
+    build: .
+    ports:
+      - 80:8080
+    tty: true
+    links:
+      - db
+    environment:
+      - MYSQL_URI=mysql://root:parola@db:3306/db
+      - PORT=8080

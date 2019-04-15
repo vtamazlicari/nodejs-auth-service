@@ -1,0 +1,12 @@
+const validator = require("email-validator");
+const errors = require('@feathersjs/errors');
+
+async function validateEmail(request, response, next) {
+    const valid = await validator.validate(request.body.email);
+    if (!valid) {
+        return next(new errors.BadRequest('INVALID_EMAIL_ADDRESS'))
+    }
+    return next();
+}
+
+module.exports = validateEmail;
